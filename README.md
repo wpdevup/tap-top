@@ -443,7 +443,7 @@ Contributions are welcome! Here's how you can help:
 
 ### Reporting Bugs
 
-Found a bug? Please [open an issue](https://github.com/yourusername/tap-top/issues) with:
+Found a bug? Please [open an issue](https://github.com/wpdevup/tap-top/issues) with:
 
 - Clear description of the problem
 - Steps to reproduce
