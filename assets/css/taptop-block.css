@@ -1,0 +1,15 @@
+/* TapTop Block Editor Styles */
+.wp-block-taptop-button {
+    margin: 16px 0;
+}
+
+.wp-block-taptop-button h4 {
+    margin: 0 0 8px 0;
+    color: #1e1e1e;
+}
+
+.wp-block-taptop-button p {
+    margin: 0;
+    color: #757575;
+    font-size: 14px;
+}

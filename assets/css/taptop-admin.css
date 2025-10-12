@@ -1,0 +1,133 @@
+/* TapTop Admin Styles */
+.taptop-content-selector {
+    max-width: 500px;
+}
+
+.taptop-search-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.taptop-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 999;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.taptop-search-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f1f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taptop-search-item:hover {
+    background-color: #f8f9fa;
+}
+
+.taptop-search-item:last-child {
+    border-bottom: none;
+}
+
+.taptop-item-type {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+}
+
+.taptop-selected-content h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #23282d;
+}
+
+.taptop-excluded-list {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    min-height: 50px;
+    background: #fafafa;
+}
+
+.taptop-excluded-list:empty:before {
+    content: "No content excluded";
+    color: #999;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.taptop-excluded-item {
+    display: inline-flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 4px 8px;
+    margin: 2px;
+    font-size: 13px;
+    gap: 6px;
+}
+
+.taptop-excluded-item .taptop-item-title {
+    font-weight: 500;
+}
+
+.taptop-excluded-item .taptop-item-type {
+    color: #666;
+}
+
+.taptop-remove-item {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+.taptop-remove-item:hover {
+    background: #c82333;
+}
+
+/* Global settings toggle */
+.taptop-global-only.disabled {
+    opacity: 0.5;
+}
+
+.taptop-global-only.disabled input,
+.taptop-global-only.disabled select {
+    pointer-events: none;
+}
+
+/* Loading state */
+.taptop-search-loading {
+    padding: 8px 12px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* No results */
+.taptop-no-results {
+    padding: 8px 12px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}

@@ -1,0 +1,82 @@
+.taptop-btn{
+  position:fixed; z-index:2147483647; display:inline-flex; align-items:center; justify-content:center;
+  border:none; border-radius:9999px; box-shadow:0 8px 24px rgba(0,0,0,.18); cursor:pointer;
+  opacity:0; transform:scale(.96); transition:opacity .22s ease, transform .22s ease, background-color .2s ease;
+}
+
+.taptop-btn:focus-visible{ 
+  outline:2px solid rgba(0,0,0,.35); 
+  outline-offset:2px; 
+}
+
+.taptop-btn:hover{ 
+  transform:scale(1.04); 
+}
+
+/* Adaptive positioning with smooth transitions */
+.taptop-btn.adaptive {
+  transition: opacity .22s ease, transform .22s ease, bottom .3s ease, left .3s ease, right .3s ease;
+}
+
+/* Progress ring animations and accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .taptop-btn {
+    transition: opacity .22s ease !important;
+  }
+  
+  .taptop-btn.adaptive {
+    transition: opacity .22s ease, bottom .3s ease, left .3s ease, right .3s ease !important;
+  }
+  
+  .taptop-btn svg circle {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .taptop-btn {
+    border: 2px solid;
+    box-shadow: 0 4px 12px rgba(0,0,0,.4);
+  }
+}
+
+/* Enhanced focus styles for better accessibility */
+.taptop-btn:focus-visible {
+  outline: 3px solid #005a9c;
+  outline-offset: 3px;
+}
+
+/* Support for forced colors mode */
+@media (forced-colors: active) {
+  .taptop-btn {
+    border: 1px solid;
+    background: ButtonFace !important;
+    color: ButtonText !important;
+  }
+  
+  .taptop-btn:hover {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+}
+
+/* Mobile safe area support - Modern approach */
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .taptop-btn[data-safe-area="true"] {
+    --safe-area-bottom: env(safe-area-inset-bottom);
+    --safe-area-left: env(safe-area-inset-left);
+    --safe-area-right: env(safe-area-inset-right);
+  }
+}
+
+/* Fallback for older browsers */
+@supports (bottom: constant(safe-area-inset-bottom)) {
+  .taptop-btn[data-safe-area="true"] {
+    --safe-area-bottom: constant(safe-area-inset-bottom);
+    --safe-area-left: constant(safe-area-inset-left);
+    --safe-area-right: constant(safe-area-inset-right);
+  }
+}
+
+/* Adaptive positioning
