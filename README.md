@@ -2,6 +2,36 @@
 
 ---
 
+## 🎉 What's New in v1.3.0
+
+### ✨ 6 Unique Button Shapes
+Choose from stunning button shapes that no other plugin offers:
+- **Circle** - Classic round button (default)
+- **Square** - Modern angular design  
+- **Rounded Square** - Soft, friendly corners
+- **Pill** - Sleek capsule shape
+- **Pentagon** - Unique 5-sided polygon
+- **Hexagon** - Geometric 6-sided design
+
+### 🎬 6 Smooth Animation Styles
+Engaging animations that respect user preferences:
+- **Fade** - Classic smooth transition
+- **Slide** - Slides up from bottom
+- **Scale** - Dynamic zoom effect
+- **Bounce** - Playful bounce animation
+- **Rotate** - Eye-catching spin entrance
+- **Flip** - Dramatic 3D flip effect
+
+### 👆 Smart Hide on Scroll Down
+**NEW UX-Optimized Feature:**
+- Button automatically hides when scrolling down
+- Instantly reappears when scrolling up
+- Reduces visual clutter during content reading
+- Smooth transitions with accessibility support
+- Works perfectly with all animation styles
+
+---
+
 ## 🎯 Why Tap Top?
 
 Most back-to-top plugins **break** when used with modern smooth scroll libraries like Lenis, Locomotive Scroll, or SmoothScrollbar. They fight against the scroll behavior, causing jarring jumps and broken animations.
@@ -21,6 +51,39 @@ lenis.scrollTo(0, { duration: 0.6 }); // Works perfectly!
 ---
 
 ## ✨ Features
+
+### 🎨 Visual Customization (NEW in v1.3.0)
+
+#### 6 Unique Button Shapes
+```
+Circle          ⚫  Classic round button
+Square          ⬜  Sharp, modern look
+Rounded Square  ⬛  Soft corners
+Pill            💊  Capsule shape
+Pentagon        ⬟   5-sided polygon
+Hexagon         ⬢   6-sided polygon
+```
+
+#### 6 Smooth Animation Styles
+```
+Fade     Classic smooth fade in/out
+Slide    Slides up from bottom edge
+Scale    Zoom in/out effect
+Bounce   Playful bounce animation
+Rotate   Spinning entrance/exit
+Flip     Dramatic 3D flip effect
+```
+
+**All animations respect `prefers-reduced-motion` for accessibility.**
+
+### 👆 Smart Behavior (NEW in v1.3.0)
+
+#### Hide on Scroll Down
+- **Auto-hide**: Button hides when scrolling down
+- **Auto-show**: Reappears instantly when scrolling up
+- **UX Optimized**: Reduces distraction during reading
+- **Smooth**: Works with all animation styles
+- **Performance**: Efficient scroll direction detection
 
 ### 🔌 Smart Library Detection
 Automatically detects and integrates with popular scroll libraries:
@@ -65,6 +128,7 @@ Complete per-page control via Gutenberg:
 ✓ Add blocks only where needed
 ✓ Each block has independent settings
 ✓ Different colors/positions per page
+✓ NEW: Different shapes and animations per page
 ```
 
 #### Hybrid Mode (Recommended)
@@ -105,6 +169,8 @@ WCAG 2.1 AA compliant out of the box:
 ---
 
 ## 📸 Screenshots
+
+**Version 1.3.0 Screenshots Coming Soon**
 
 ---
 
@@ -147,8 +213,11 @@ composer require wpackagist-plugin/tap-top
 1. Go to **Tap Top → Settings** in WordPress admin
 2. Ensure **Display Mode** is set to **Global Mode**
 3. Enable **Show on Posts** and **Show on Pages**
-4. Customize colors, position, and size
-5. Save changes
+4. **NEW**: Choose your preferred **Button Shape**
+5. **NEW**: Select an **Animation Style**
+6. **NEW**: Enable **Hide on Scroll Down** for better UX
+7. Customize colors, position, and size
+8. Save changes
 
 The button will now appear site-wide based on your settings.
 
@@ -157,6 +226,9 @@ The button will now appear site-wide based on your settings.
 1. Edit any post or page
 2. Add **Tap Top Button** block
 3. Customize in block settings panel:
+   - **NEW**: Button Shape (6 options)
+   - **NEW**: Animation Style (6 options)
+   - **NEW**: Hide on Scroll Down
    - Colors (background, icon, progress ring)
    - Position (left or right)
    - Size and offsets
@@ -164,14 +236,6 @@ The button will now appear site-wide based on your settings.
 4. Publish the page
 
 Each block has independent settings.
-
-#### Using Hybrid Mode
-
-1. Set **Display Mode** to **Hybrid Mode**
-2. Configure global settings as default
-3. Add blocks to specific pages to override
-4. Pages with blocks use block settings
-5. Pages without blocks use global settings
 
 ---
 
@@ -190,16 +254,24 @@ Each block has independent settings.
 | Show on Archives | Display on category/tag pages | On |
 | Show on Search | Display on search results | On |
 
-#### Appearance
+#### Appearance (NEW in v1.3.0)
 
 | Setting | Description | Default |
 |---------|-------------|---------|
+| **Button Shape** | Circle / Square / Rounded / Pill / Pentagon / Hexagon | Circle |
+| **Animation Style** | Fade / Slide / Scale / Bounce / Rotate / Flip | Fade |
 | Position | Bottom Right / Bottom Left | Right |
 | Button Size | Size in pixels (24-80) | 48px |
 | Background Color | Button background color | #111111 |
 | Icon Color | Arrow icon color | #ffffff |
 | Bottom Offset | Distance from bottom (8-100px) | 24px |
 | Side Offset | Distance from side (8-100px) | 24px |
+
+#### Behavior (NEW in v1.3.0)
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| **Hide on Scroll Down** | Auto-hide when scrolling down | Off |
 
 #### Progress Ring
 
@@ -212,126 +284,35 @@ Each block has independent settings.
 
 ---
 
-### Supported Scroll Libraries
-
-#### Lenis
-
-```javascript
-// Tap Top automatically detects and uses:
-lenis.scrollTo(0, {
-  duration: 0.6,
-  easing: (t) => 1 - Math.pow(1 - t, 3)
-});
-```
-
-**Tested with:** Lenis v1.0+
-
-#### Locomotive Scroll
-
-```javascript
-// Automatically integrates with:
-locomotive.scrollTo(0, {
-  duration: 600,
-  easing: [0.25, 0.00, 0.35, 1.00]
-});
-```
-
-**Tested with:** Locomotive Scroll v4.x and v5.x
-
-#### SmoothScrollbar
-
-```javascript
-// Uses native API:
-scrollbar.scrollTo(0, 0, 600);
-```
-
-**Tested with:** SmoothScrollbar v8.x
-
-#### Detection Example
-
-```javascript
-// The plugin automatically runs this on page load:
-function detectScrollLibrary() {
-  if (window.lenis) return { type: 'lenis', instance: window.lenis };
-  if (window.locomotive) return { type: 'locomotive', instance: window.locomotive.scroll };
-  if (window.Scrollbar) return { type: 'smoothscrollbar', instance: window.Scrollbar.getAll()[0] };
-  return { type: 'native', instance: null };
-}
-```
-
----
-
-### Developer Hooks
-
-#### Filters
-
-```php
-// Modify global configuration
-add_filter('taptop_global_config', function($config) {
-    $config['size'] = 56;
-    $config['position'] = 'left';
-    return $config;
-});
-
-// Modify block attributes
-add_filter('taptop_block_attributes', function($attributes) {
-    $attributes['bgColor'] = '#ff0000';
-    return $attributes;
-});
-
-// Control when assets load
-add_filter('taptop_should_load', function($should_load) {
-    return !is_page('checkout');
-}, 10, 1);
-
-// Programmatically exclude pages
-add_filter('taptop_excluded_pages', function($excluded) {
-    $excluded[] = 123; // Exclude post ID 123
-    return $excluded;
-});
-```
-
-#### Actions
-
-```php
-// Before button renders
-add_action('taptop_before_button_render', function() {
-    // Your code here
-});
-
-// After assets enqueue
-add_action('taptop_after_assets_enqueue', function() {
-    // Your code here
-});
-```
-
----
-
-### Browser Compatibility
-
-| Browser | Version | Status |
-|---------|---------|--------|
-| Chrome | 90+ | ✅ Fully Supported |
-| Firefox | 88+ | ✅ Fully Supported |
-| Safari | 14+ | ✅ Fully Supported |
-| Edge | 90+ | ✅ Fully Supported |
-| iOS Safari | 14+ | ✅ Fully Supported |
-| Android Chrome | 90+ | ✅ Fully Supported |
-
-**Legacy browsers:** Graceful degradation with instant scroll fallback.
-
----
-
 ## 🎭 Demo
 
-### Live Examples
+### Shape Examples
 
-### Try It Yourself
+**Try all 6 shapes:**
+- Circle: Classic and universally recognized
+- Square: Modern, sharp aesthetic
+- Rounded Square: Friendly and approachable
+- Pill: Sleek capsule design
+- Pentagon: Unique geometric shape
+- Hexagon: Technical, modern look
 
-1. Install the plugin on a test site
-2. Add a Lenis/Locomotive scroll library
-3. Watch Tap Top automatically detect and integrate
-4. Test anchor links - they work perfectly!
+### Animation Examples
+
+**Experience all 6 animations:**
+- Fade: Smooth, subtle entrance
+- Slide: Directional slide-up
+- Scale: Dynamic zoom effect
+- Bounce: Playful and energetic
+- Rotate: Spinning entrance
+- Flip: Dramatic 3D effect
+
+### Hide on Scroll Demo
+
+**See the smart behavior:**
+1. Scroll down → Button hides
+2. Scroll up → Button appears
+3. Reduces clutter during reading
+4. Smooth transitions
 
 ---
 
@@ -358,143 +339,63 @@ ln -s $(pwd) /path/to/wordpress/wp-content/plugins/tap-top
 cp -r . /path/to/wordpress/wp-content/plugins/tap-top
 ```
 
-### Development Workflow
-
-```bash
-# 1. Enable debugging in wp-config.php
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', true);
-
-# 2. Make your changes to:
-# - PHP files in includes/
-# - JavaScript files in assets/js/
-# - CSS files in assets/css/
-
-# 3. Test in browser with console open
-
-# 4. Check for JavaScript errors:
-# Open DevTools → Console
-
-# 5. Check for PHP errors:
-# wp-content/debug.log
-```
-
-### File Structure
+### File Structure (Updated v1.3.0)
 
 ```
 tap-top/
 ├── assets/
 │   ├── css/
-│   │   ├── taptop.css              # Frontend styles
+│   │   ├── taptop.css              # Frontend styles (UPDATED: shapes & animations)
 │   │   ├── taptop-admin.css        # Admin panel styles
 │   │   └── taptop-block.css        # Block editor styles
 │   └── js/
-│       ├── taptop.js               # Main frontend script
+│       ├── taptop.js               # Main script (UPDATED: hide on scroll)
 │       ├── taptop-admin.js         # Admin panel functionality
-│       └── taptop-block.js         # Gutenberg block
+│       └── taptop-block.js         # Gutenberg block (UPDATED: new options)
 ├── includes/
-│   ├── class-taptop-settings.php   # Settings page
-│   └── class-taptop-block.php      # Block registration
+│   ├── class-taptop-settings.php   # Settings page (UPDATED: new options)
+│   └── class-taptop-block.php      # Block registration (UPDATED)
 ├── languages/
 │   └── tap-top.pot                 # Translation template
-├── tap-top.php                     # Main plugin file
-├── readme.txt                      # WordPress.org readme
-├── README.md                       # This file
+├── tap-top.php                     # Main plugin file (v1.3.0)
+├── readme.txt                      # WordPress.org readme (UPDATED)
+├── README.md                       # This file (UPDATED)
 ├── LICENSE                         # GPL-2.0+ license
 └── uninstall.php                   # Cleanup on uninstall
 ```
 
-### Coding Standards
-
-This plugin follows [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/):
-
-```bash
-# Install PHPCS and WPCS
-composer global require wp-coding-standards/wpcs
-
-# Check PHP files
-phpcs --standard=WordPress includes/ tap-top.php
-
-# Check JavaScript files
-eslint assets/js/
-```
-
-### Testing Checklist
-
-Before submitting changes:
-
-- [ ] Test on clean WordPress installation
-- [ ] Test with WP_DEBUG enabled
-- [ ] Test with different themes
-- [ ] Test with Lenis library
-- [ ] Test with Locomotive Scroll
-- [ ] Test on mobile devices
-- [ ] Check browser console for errors
-- [ ] Verify accessibility with screen reader
-- [ ] Test keyboard navigation
-- [ ] Check performance with Lighthouse
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-### Reporting Bugs
-
-Found a bug? Please [open an issue](https://github.com/wpdevup/tap-top/issues) with:
-
-- Clear description of the problem
-- Steps to reproduce
-- Expected vs actual behavior
-- WordPress version
-- PHP version
-- Browser and version
-- Any relevant console errors
-
-### Suggesting Features
-
-Have an idea? [Open an issue](https://github.com/wpdevup/tap-top/issues) with:
-
-- Clear description of the feature
-- Use case and benefits
-- Any examples or mockups
-
-### Pull Requests
-
-1. Fork the repository
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. Make your changes
-4. Test thoroughly
-5. Commit with clear messages:
-   ```bash
-   git commit -m "Add amazing feature"
-   ```
-6. Push to your fork:
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-7. Open a Pull Request with:
-   - Description of changes
-   - Testing performed
-   - Screenshots (if UI changes)
-
-### Translation
-
-Help translate Tap Top into your language:
-
-1. Copy `languages/tap-top.pot`
-2. Use [Poedit](https://poedit.net/) to translate
-3. Save as `tap-top-{locale}.po` and `tap-top-{locale}.mo`
-4. Submit via Pull Request
-
 ---
 
 ## 📝 Changelog
+
+### 1.3.0 - 2025-01-20
+
+**🎉 Major Feature Release**
+
+**New Features:**
+- ✨ **6 Unique Button Shapes** - Circle, Square, Rounded Square, Pill, Pentagon, Hexagon
+- ✨ **6 Smooth Animation Styles** - Fade, Slide, Scale, Bounce, Rotate, Flip (3D)
+- ✨ **Hide on Scroll Down** - Smart auto-hide behavior for improved UX
+
+**Improvements:**
+- 🎨 Enhanced CSS with shape-specific styling and clip-path support
+- ⚡ Optimized animations with GPU acceleration
+- 📱 Better mobile performance with shape rendering
+- 🔧 Improved animation transitions with prefers-reduced-motion support
+- 💫 Smooth state transitions for hide-on-scroll feature
+
+**Technical:**
+- New CSS classes for shapes: `.shape-circle`, `.shape-square`, `.shape-rounded-square`, `.shape-pill`, `.shape-pentagon`, `.shape-hexagon`
+- New animation classes: `.anim-fade`, `.anim-slide`, `.anim-scale`, `.anim-bounce`, `.anim-rotate`, `.anim-flip`
+- Smart scroll direction detection for hide-on-scroll
+- Enhanced Gutenberg block with shape and animation previews
+- Full backward compatibility with v1.2.x
+
+**Compatibility:**
+- WordPress 5.6+ (tested up to 6.8)
+- PHP 7.2+
+- All modern browsers with CSS clip-path support
+- Graceful degradation for older browsers
 
 ### 1.2.0 - 2025-01-15
 
@@ -517,25 +418,6 @@ Help translate Tap Top into your language:
 - 🔧 Better WordPress coding standards compliance
 - 📚 Complete documentation with examples
 
-**Bug Fixes:**
-- 🐛 Fixed WordPress coding standards issues
-- 🐛 Fixed Hybrid mode block detection
-- 🐛 Fixed inline script implementation
-- 🐛 Fixed settings save notification
-
-**Technical:**
-- Complete JavaScript rewrite for library detection
-- New PHP class structure for blocks and settings
-- Enhanced admin interface with search functionality
-- Improved asset loading with conditional enqueueing
-- Better integration with WordPress hooks
-
-**Compatibility:**
-- WordPress 5.6+ (tested up to 6.8)
-- PHP 7.2+ requirement
-- Modern browsers with ES6+ support
-- All major page builders and themes
-
 ### 1.1.0 - 2024-10-01
 - Initial release with basic functionality
 
@@ -554,11 +436,6 @@ This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
 ```
 
 See [LICENSE](LICENSE) file for full details.
@@ -601,6 +478,7 @@ Special thanks to:
 - WordPress Plugin Review Team
 - Scroll library maintainers (Lenis, Locomotive, SmoothScrollbar)
 - Everyone who provided feedback and suggestions
+- Design inspiration from modern web applications
 
 ---
 
@@ -615,6 +493,8 @@ Special thanks to:
 <div align="center">
 
 **Made with ❤️ for the WordPress community**
+
+**Version 1.3.0 - Now with 6 Unique Shapes & Smooth Animations!**
 
 [⬆ Back to Top](#tap-top--advanced-back-to-top-button-for-wordpress)
 
