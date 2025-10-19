@@ -7,19 +7,15 @@ function ready(fn){
     else fn(); 
 }
 
-// Library Detection & Smart Scrolling
 function detectScrollLibrary() {
-    // Check for Lenis
     if (window.lenis && typeof window.lenis.scrollTo === 'function') {
         return { type: 'lenis', instance: window.lenis };
     }
     
-    // Check for Locomotive Scroll
     if (window.locomotive && window.locomotive.scroll) {
         return { type: 'locomotive', instance: window.locomotive.scroll };
     }
     
-    // Check for SmoothScrollbar
     if (window.Scrollbar && window.Scrollbar.getAll) {
         var scrollbars = window.Scrollbar.getAll();
         if (scrollbars.length > 0) {
@@ -27,7 +23,6 @@ function detectScrollLibrary() {
         }
     }
     
-    // Check for other common patterns
     if (document.querySelector('[data-scroll-container]')) {
         return { type: 'locomotive-detected', instance: null };
     }
@@ -56,29 +51,24 @@ function smartScrollToTop(library) {
             break;
             
         case 'locomotive-detected':
-            // Try to find locomotive instance
             var locomotiveEl = document.querySelector('[data-scroll-container]');
             if (locomotiveEl && locomotiveEl.scrollTop !== undefined) {
                 locomotiveEl.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                // Fallback to custom smooth scroll
                 customSmoothScroll();
             }
             break;
             
         default:
-            // Always use custom smooth scroll for consistent behavior
             customSmoothScroll();
             break;
     }
 }
 
-// Universal Anchor Link Fixes
 function initializeAnchorFixes(scrollLibrary) {
     console.log('🔧 TapTop: Initializing Universal Anchor Fixes...');
     console.log('📚 TapTop: Scroll library type:', scrollLibrary.type);
     
-    // Override default anchor link behavior
     document.addEventListener('click', function(e) {
         const link = e.target.closest('a[href^="#"]');
         if (!link) return;
@@ -103,7 +93,6 @@ function initializeAnchorFixes(scrollLibrary) {
         }
     });
     
-    // Handle initial hash on page load
     if (window.location.hash) {
         console.log('🔗 TapTop: Initial hash detected:', window.location.hash);
         setTimeout(function() {
@@ -113,7 +102,7 @@ function initializeAnchorFixes(scrollLibrary) {
                 console.log('✅ TapTop: Scrolling to initial hash target:', targetId);
                 smoothScrollToElement(targetElement, scrollLibrary);
             }
-        }, 500); // Increased delay for theme compatibility
+        }, 500);
     }
 }
 
@@ -129,7 +118,6 @@ function smoothScrollToElement(element, library) {
     
     switch (library.type) {
         case 'lenis':
-            // Calculate position relative to document
             targetPosition = window.pageYOffset + elementRect.top - offset;
             console.log('🎨 TapTop: Using Lenis scroll to:', targetPosition);
             library.instance.scrollTo(targetPosition, {
@@ -166,10 +154,7 @@ function smoothScrollToElement(element, library) {
 }
 
 function getScrollOffset() {
-    // Detect sticky headers and other obstructions
     let offset = 0;
-    
-    // Common sticky header selectors (including WoodMart specific)
     const stickyElements = document.querySelectorAll(
         '.sticky-header, .fixed-header, [data-sticky], .site-header.fixed, .navbar-fixed-top, .header-fixed, .whb-header, .woodmart-sticky-header, .wd-header'
     );
@@ -183,7 +168,6 @@ function getScrollOffset() {
     });
     
     console.log('📏 TapTop: Detected sticky header offset:', offset + 'px');
-    // Default offset if no sticky elements found (WoodMart usually has headers)
     return offset || 80;
 }
 
@@ -198,7 +182,6 @@ function customSmoothScrollTo(targetPosition) {
         const timeElapsed = currentTime - startTime;
         const progress = Math.min(timeElapsed / duration, 1);
         
-        // Ease out cubic
         const easeOut = 1 - Math.pow(1 - progress, 3);
         window.scrollTo(0, start + distance * easeOut);
         
@@ -210,7 +193,6 @@ function customSmoothScrollTo(targetPosition) {
     requestAnimationFrame(animation);
 }
 
-// Accessibility: Check for reduced motion preference
 function respectsReducedMotion() {
     var hasMatchMedia = window.matchMedia && typeof window.matchMedia === 'function';
     if (!hasMatchMedia) {
@@ -225,7 +207,6 @@ function customSmoothScroll() {
     var start = window.pageYOffset || document.documentElement.scrollTop;
     if (start === 0) return;
     
-    // Respect reduced motion preference
     if (respectsReducedMotion()) {
         window.scrollTo(0, 0);
         return;
@@ -239,7 +220,6 @@ function customSmoothScroll() {
         var timeElapsed = currentTime - startTime;
         var progress = Math.min(timeElapsed / duration, 1);
         
-        // Ease out cubic
         var easeOut = 1 - Math.pow(1 - progress, 3);
         var position = start * (1 - easeOut);
         
@@ -287,16 +267,13 @@ function getScrollProgress(library) {
     return maxScroll > 0 ? Math.min(Math.max(scrollTop / maxScroll, 0), 1) : 0;
 }
 
-// Helper function for forcing position styles
 function forcePosition(element, pos, offset) {
     if (pos === 'left') {
-        // Force left positioning
         element.style.setProperty('left', offset + 'px', 'important');
         element.style.setProperty('right', 'auto', 'important');
         element.style.removeProperty('margin-left');
         element.style.removeProperty('margin-right');
     } else {
-        // Force right positioning  
         element.style.setProperty('right', offset + 'px', 'important');
         element.style.setProperty('left', 'auto', 'important');
         element.style.removeProperty('margin-left');
@@ -305,26 +282,21 @@ function forcePosition(element, pos, offset) {
 }
 
 ready(function(){
-    console.log('🚀 TapTop: Initializing...');
+    console.log('🚀 TapTop: Initializing v1.3.0...');
     
-    // Handle both global config and block configs
     var globalCfg = window.TapTopConfig || {};
     var blockConfigs = window.TapTopBlocks || [];
     
-    // Check if we have any blocks
     var hasBlocks = blockConfigs && Array.isArray(blockConfigs) && blockConfigs.length > 0;
     var hasGlobal = globalCfg && Object.keys(globalCfg).length > 0;
     
     console.log('🔧 TapTop: hasBlocks =', hasBlocks, ', hasGlobal =', hasGlobal);
     
-    // Initialize anchor fixes once - ALWAYS run this regardless of buttons
     var scrollLibrary = detectScrollLibrary();
     console.log('📚 TapTop: Detected scroll library:', scrollLibrary.type);
     initializeAnchorFixes(scrollLibrary);
     
-    // Priority Logic for all modes:
     if (hasBlocks) {
-        // Block configs exist - they always take priority (Block-Only, Hybrid)
         console.log('🎯 TapTop: Using block configs');
         blockConfigs.forEach(function(cfg) {
             if (cfg && typeof cfg === 'object') {
@@ -334,7 +306,6 @@ ready(function(){
         return;
     }
     
-    // No block configs - use global config (Global Mode or Hybrid without blocks)
     if (hasGlobal) {
         console.log('🌍 TapTop: Using global config');
         createButton(globalCfg);
@@ -343,7 +314,6 @@ ready(function(){
     }
     
     function createButton(cfg) {
-        // Detect scroll library once per button
         var scrollLibrary = detectScrollLibrary();
         
         var position = cfg.position || 'right';
@@ -355,19 +325,19 @@ ready(function(){
         var ic = cfg.iconColor || '#ffffff';
         var aria = cfg.ariaLabel || 'Back to top';
         
-        // Progress Ring settings
         var showProgress = parseInt(cfg.showProgress || 0, 10);
         var progressColor = cfg.progressColor || '#007cba';
         var progressWidth = parseInt(cfg.progressWidth || 3, 10);
         var progressBgColor = cfg.progressBgColor || 'rgba(255,255,255,0.2)';
         
-        // Adaptive positioning setting - NOW READS FROM CONFIG
         var adaptivePositioning = parseInt(cfg.adaptivePositioning !== undefined ? cfg.adaptivePositioning : 1, 10);
+        
+        var buttonShape = cfg.buttonShape || 'circle';
+        var animationStyle = cfg.animationStyle || 'fade';
+        var hideOnScrollDown = parseInt(cfg.hideOnScrollDown || 0, 10);
 
-        // Accessibility: Check for reduced motion
         var reducedMotion = respectsReducedMotion();
         
-        // Log detected library for debugging (only once)
         if (scrollLibrary.type !== 'native') {
             console.log('TapTop: Detected scroll library -', scrollLibrary.type);
         }
@@ -379,34 +349,35 @@ ready(function(){
         btn.type='button'; 
         btn.className='taptop-btn' + (adaptivePositioning ? ' adaptive' : ''); 
         btn.setAttribute('aria-label', aria);
-        btn.setAttribute('data-safe-area', 'true'); // Enable safe area support
+        btn.setAttribute('data-safe-area', 'true');
         
-        // Adaptive transitions based on motion preference
+        btn.classList.add('shape-' + buttonShape);
+        btn.classList.add('anim-' + animationStyle);
+        
         var transitionCSS = reducedMotion ? 
-            'position:fixed;display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:9999px;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer;opacity:0;z-index:2147483647;outline:none;' :
-            'position:fixed;display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:9999px;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer;transition:opacity .22s ease,transform .22s ease,bottom .3s ease;opacity:0;transform:scale(.96);z-index:2147483647;outline:none;';
+            'position:fixed;display:inline-flex;align-items:center;justify-content:center;border:none;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer;opacity:0;z-index:2147483647;outline:none;' :
+            'position:fixed;display:inline-flex;align-items:center;justify-content:center;border:none;box-shadow:0 8px 24px rgba(0,0,0,.18);cursor:pointer;transition:opacity .22s ease,transform .22s ease,bottom .3s ease;opacity:0;z-index:2147483647;outline:none;';
         
         btn.style.cssText = transitionCSS;
         btn.style.width=size+'px'; 
         btn.style.height=size+'px'; 
         btn.style.backgroundColor=bg;
         
-        // Store original offsets for adaptive positioning
         var originalBottomOffset = offsetBottom < 8 ? 8 : offsetBottom;
         var originalSideOffset = offsetSide < 8 ? 8 : offsetSide;
         
-        // Set initial position with force override for browser compatibility
         btn.style.bottom = originalBottomOffset + 'px';
         forcePosition(btn, position, originalSideOffset);
         
-        // Debug log for position
         console.log('TapTop: Button positioned -', position, 'side with', originalSideOffset + 'px offset');
+        console.log('TapTop: Button shape -', buttonShape, '| Animation -', animationStyle);
+        if (hideOnScrollDown) {
+            console.log('TapTop: Hide on scroll down - ENABLED');
+        }
 
-        // Conditional Obstruction Detection System
         var obstructionDetector;
         
         if (adaptivePositioning) {
-            // Full Position-Aware Obstruction Detection System
             obstructionDetector = {
                 lastCheck: 0,
                 lastBottom: originalBottomOffset,
@@ -416,7 +387,7 @@ ready(function(){
                 
                 init: function() {
                     this.setupResizeObserver();
-                    this.updateButtonPosition(); // Initial position
+                    this.updateButtonPosition();
                     this.startPeriodicCheck();
                 },
                 
@@ -424,13 +395,11 @@ ready(function(){
                     if (window.ResizeObserver) {
                         var self = this;
                         this.resizeObserver = new ResizeObserver(function(entries) {
-                            // Throttle resize updates
                             clearTimeout(self.resizeTimeout);
                             self.resizeTimeout = setTimeout(function() {
                                 self.updateButtonPosition();
                             }, 300);
                         });
-                        // Observe body for general layout changes
                         this.resizeObserver.observe(document.body);
                     }
                 },
@@ -440,16 +409,13 @@ ready(function(){
                     var viewportWidth = window.innerWidth;
                     var safeBottom = originalBottomOffset;
                     
-                    // Get mobile safe areas
                     var safeAreaBottom = this.getSafeAreaInset('bottom');
                     safeBottom += safeAreaBottom;
                     
-                    // Find all fixed elements in the same corner
                     var allElements = document.querySelectorAll('*');
                     var foundObstructions = false;
                     
                     allElements.forEach(function(element) {
-                        // Skip our own button
                         if (element === btn || element.classList.contains('taptop-btn')) {
                             return;
                         }
@@ -457,30 +423,24 @@ ready(function(){
                         var style = window.getComputedStyle(element);
                         var rect = element.getBoundingClientRect();
                         
-                        // Check if element is fixed and visible
                         if (style.position === 'fixed' && 
                             style.display !== 'none' && 
                             style.visibility !== 'hidden' &&
                             rect.width > 10 && rect.height > 10) {
                             
-                            // Check if in bottom area
-                            var isBottomArea = rect.bottom > viewportHeight * 0.5; // Bottom 50% of page
+                            var isBottomArea = rect.bottom > viewportHeight * 0.5;
                             
-                            // Check if in same corner as our button
                             var isInSameCorner = false;
                             if (position === 'right') {
-                                // If button is on right, only check right side elements
                                 isInSameCorner = rect.right > viewportWidth * 0.5;
                             } else {
-                                // If button is on left, only check left side elements
                                 isInSameCorner = rect.left < viewportWidth * 0.5;
                             }
                             
                             if (isBottomArea && isInSameCorner) {
                                 var elementBottom = viewportHeight - rect.top;
-                                var newBottom = elementBottom + 15; // 15px spacing
+                                var newBottom = elementBottom + 15;
                                 
-                                // Ensure it doesn't go too high
                                 if (newBottom > safeBottom && newBottom < viewportHeight - size - 8) {
                                     safeBottom = newBottom;
                                     foundObstructions = true;
@@ -489,24 +449,21 @@ ready(function(){
                         }
                     });
                     
-                    // Log adaptive positioning activation only once
                     if (foundObstructions && !this.hasLoggedInit) {
                         console.log('TapTop: Adaptive positioning active -', position, 'side');
                         this.hasLoggedInit = true;
                     }
                     
-                    // Limit movement to maximum 200px
                     var maxMovement = 200;
                     safeBottom = Math.min(safeBottom, originalBottomOffset + maxMovement);
                     
                     return {
                         bottom: Math.max(originalBottomOffset, safeBottom),
-                        side: originalSideOffset // Always use original position
+                        side: originalSideOffset
                     };
                 },
                 
                 getSafeAreaInset: function(side) {
-                    // Try CSS env() variables first
                     var testEl = document.createElement('div');
                     testEl.style.position = 'fixed';
                     testEl.style.top = '-9999px';
@@ -541,7 +498,6 @@ ready(function(){
                     
                     document.body.removeChild(testEl);
                     
-                    // Fallback detection for older browsers or specific devices
                     if (pixels === 0) {
                         pixels = this.detectSafeAreaFallback(side);
                     }
@@ -550,23 +506,20 @@ ready(function(){
                 },
                 
                 detectSafeAreaFallback: function(side) {
-                    // Heuristic detection for common devices
                     var ua = navigator.userAgent.toLowerCase();
                     var isIOS = /iphone|ipad/.test(ua);
                     var isAndroid = /android/.test(ua);
                     
                     if (isIOS && side === 'bottom') {
-                        // iPhone with home indicator
                         if (window.screen.height === 812 || window.screen.height === 896 || 
                             window.screen.height === 844 || window.screen.height === 926) {
-                            return 34; // Home indicator height
+                            return 34;
                         }
                     }
                     
                     if (isAndroid && side === 'bottom') {
-                        // Android gesture navigation
                         if (window.navigator.userAgent.includes('Android')) {
-                            return 16; // Typical gesture bar height
+                            return 16;
                         }
                     }
                     
@@ -575,32 +528,21 @@ ready(function(){
                 
                 updateButtonPosition: function() {
                     var now = Date.now();
-                    if (now - this.lastCheck < 3000) return; // Throttle updates to 3 seconds
+                    if (now - this.lastCheck < 3000) return;
                     this.lastCheck = now;
                     
                     var safePos = this.calculateSafePosition();
                     
-                    // Only update if position actually changed significantly
                     if (Math.abs(this.lastBottom - safePos.bottom) > 15) {
-                        
-                        // Smooth transition to new position (vertical only)
                         btn.style.bottom = safePos.bottom + 'px';
-                        
-                        // Keep horizontal position fixed with force override
                         forcePosition(btn, position, originalSideOffset);
-                        
-                        // Update last position
                         this.lastBottom = safePos.bottom;
-                        
-                        // Silent mode - no position change logging
                     }
                 },
                 
                 startPeriodicCheck: function() {
                     var self = this;
-                    // Check every 8 seconds for new obstructions (very relaxed frequency)
                     this.intervalId = setInterval(function() {
-                        // Only check if page is visible
                         if (document.visibilityState === 'visible') {
                             self.updateButtonPosition();
                         }
@@ -620,7 +562,6 @@ ready(function(){
                 }
             };
         } else {
-            // Simple placeholder when adaptive positioning is disabled
             obstructionDetector = {
                 init: function() {
                     console.log('TapTop: Adaptive positioning disabled by user setting');
@@ -629,7 +570,6 @@ ready(function(){
             };
         }
 
-        // Create progress ring if enabled
         var progressRing = null;
         var progressCircle = null;
         var circumference = 0;
@@ -644,7 +584,6 @@ ready(function(){
             var radius = (size / 2) - (progressWidth / 2);
             circumference = 2 * Math.PI * radius;
             
-            // Background circle
             var bgCircle = document.createElementNS(svgNS, 'circle');
             bgCircle.setAttribute('cx', size / 2);
             bgCircle.setAttribute('cy', size / 2);
@@ -654,7 +593,6 @@ ready(function(){
             bgCircle.setAttribute('stroke-width', progressWidth);
             progressRing.appendChild(bgCircle);
             
-            // Progress circle
             progressCircle = document.createElementNS(svgNS, 'circle');
             progressCircle.setAttribute('cx', size / 2);
             progressCircle.setAttribute('cy', size / 2);
@@ -671,7 +609,6 @@ ready(function(){
             btn.appendChild(progressRing);
         }
 
-        // Create icon
         var iconSvg = document.createElementNS('http://www.w3.org/2000/svg','svg'); 
         iconSvg.setAttribute('viewBox','0 0 24 24'); 
         iconSvg.setAttribute('aria-hidden','true');
@@ -690,13 +627,14 @@ ready(function(){
         btn.appendChild(iconSvg); 
         document.body.appendChild(btn);
 
-        // Initialize obstruction detection after button is added to DOM
         setTimeout(function() {
             forcePosition(btn, position, originalSideOffset);
             obstructionDetector.init();
         }, 100);
 
         var visible=false;
+        var lastScrollTop = 0;
+        var scrollDirection = 'up';
         
         function updateProgress() {
             if (showProgress && progressCircle) {
@@ -708,34 +646,56 @@ ready(function(){
         
         function show(){ 
             if(!visible){ 
-                btn.style.opacity='1'; 
-                if (!reducedMotion) {
-                    btn.style.transform='scale(1)'; 
-                }
+                btn.classList.add('visible');
+                btn.classList.remove('hide-scroll');
                 visible=true; 
             } 
         } 
         
         function hide(){ 
             if(visible){ 
-                btn.style.opacity='0'; 
-                if (!reducedMotion) {
-                    btn.style.transform='scale(.96)'; 
-                }
+                btn.classList.remove('visible');
                 visible=false; 
             } 
+        }
+        
+        function hideForScroll() {
+            btn.classList.add('hide-scroll');
+        }
+        
+        function showFromScroll() {
+            btn.classList.remove('hide-scroll');
         }
         
         function update(){ 
             var progress = getScrollProgress(scrollLibrary);
             var currentScroll = progress * (document.documentElement.scrollHeight - window.innerHeight);
             
-            if (currentScroll > showAfter) show(); 
-            else hide();
+            if (hideOnScrollDown) {
+                var currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (currentScrollTop > lastScrollTop && currentScrollTop > showAfter) {
+                    scrollDirection = 'down';
+                    hideForScroll();
+                } else if (currentScrollTop < lastScrollTop) {
+                    scrollDirection = 'up';
+                    if (currentScroll > showAfter) {
+                        showFromScroll();
+                    }
+                }
+                
+                lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+            }
+            
+            if (currentScroll > showAfter) {
+                show();
+            } else {
+                hide();
+            }
+            
             updateProgress();
         }
 
-        // Use appropriate scroll listener based on library
         if (scrollLibrary.type === 'lenis' && scrollLibrary.instance) {
             scrollLibrary.instance.on('scroll', update);
         } else if (scrollLibrary.type === 'locomotive' && scrollLibrary.instance) {
@@ -744,7 +704,6 @@ ready(function(){
             window.addEventListener('scroll', update, {passive:true});
         }
         
-        // Listen for window resize to update position (throttled)
         var resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
@@ -752,7 +711,6 @@ ready(function(){
                 if (adaptivePositioning && obstructionDetector.updateButtonPosition) {
                     obstructionDetector.updateButtonPosition();
                 }
-                // Force position again on resize
                 forcePosition(btn, position, originalSideOffset);
             }, 750);
         }, {passive: true});
@@ -764,7 +722,6 @@ ready(function(){
             smartScrollToTop(scrollLibrary);
         }, {passive:false});
         
-        // Cleanup function for when button is removed
         btn._tapTopCleanup = function() {
             obstructionDetector.destroy();
         };

@@ -1,20 +1,44 @@
 === Tap Top ===
 Contributors: iruserwp9
-Tags: back to top, scroll to top, accessibility, progress ring, gutenberg
+Tags: back to top, scroll button, smooth scroll, floating button, gutenberg
 Requires at least: 5.6
 Requires PHP: 7.2
 Tested up to: 6.8
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Advanced back-to-top button with smart scroll library detection, universal anchor fixes, adaptive positioning, and accessibility features.
+Advanced back-to-top button with 6 unique shapes, smooth animations, and smart scroll library detection for WordPress.
 
 == Description ==
 
 **Tap Top** goes far beyond simple back-to-top plugins by solving real problems that modern WordPress sites face with scroll libraries and complex layouts.
 
-= 🚀 What Makes Tap Top Unique =
+= 🎉 What's New in Version 1.3.0 =
+
+**✨ 6 Unique Button Shapes**
+* Circle (Classic round button)
+* Square (Modern angular design)
+* Rounded Square (Soft corners)
+* Pill (Capsule/oblong shape)
+* Pentagon (5-sided polygon)
+* Hexagon (6-sided polygon)
+
+**🎬 6 Smooth Animation Styles**
+* Fade (Classic smooth fade)
+* Slide (Slides up from bottom)
+* Scale (Zoom in/out effect)
+* Bounce (Playful bounce animation)
+* Rotate (Spinning entrance)
+* Flip (3D flip effect)
+
+**👆 Smart Hide on Scroll Down**
+* Automatically hides button when scrolling down
+* Reappears instantly when scrolling up
+* Reduces visual clutter and improves UX
+* Smooth transitions with accessibility support
+
+= 🚀 Core Features =
 
 **Library-Aware Scroll Behavior**
 * **Automatic Detection**: Detects Lenis, Locomotive Scroll, and SmoothScrollbar automatically
@@ -62,12 +86,6 @@ Advanced back-to-top button with smart scroll library detection, universal ancho
 * ✅ **Custom Scroll Containers** - Detects nested and custom implementations
 * ✅ **Native Browser Scrolling** - Enhanced smooth scrolling fallback
 
-**How It Works:**
-The plugin detects which scroll library is active and uses its native API methods:
-* Lenis: `lenis.scrollTo()` with proper easing
-* Locomotive: `locomotive.scrollTo()` with momentum preservation
-* SmoothScrollbar: `scrollbar.scrollTo()` with native smooth timing
-
 = 🎯 Display Modes =
 
 **Global Mode**
@@ -110,6 +128,9 @@ The plugin detects which scroll library is active and uses its native API method
 * Color customization (background, icon, progress ring)
 * Animation timing and easing preferences
 * Show/hide conditions and page-specific rules
+* 6 unique button shapes
+* 6 smooth animation styles
+* Smart hide on scroll down behavior
 
 = 📱 Mobile & Device Support =
 
@@ -173,9 +194,43 @@ Most plugins simply use `window.scrollTo()` which conflicts with modern scroll l
 Additionally, Tap Top includes advanced features like:
 - Universal anchor link fixes
 - Adaptive positioning to avoid UI conflicts
+- 6 unique button shapes
+- 6 smooth animation styles
+- Smart hide on scroll down
 - Full accessibility compliance
 - Mobile safe-area support
 - Performance optimizations
+
+= What are the new button shapes? =
+
+Version 1.3.0 introduces 6 unique shapes:
+- **Circle**: Classic round button (default)
+- **Square**: Sharp, modern angular design
+- **Rounded Square**: Soft corners for a friendly look
+- **Pill**: Capsule/oblong shape
+- **Pentagon**: 5-sided polygon for unique styling
+- **Hexagon**: 6-sided polygon for geometric designs
+
+= What animation styles are available? =
+
+Choose from 6 smooth animations:
+- **Fade**: Classic smooth fade in/out
+- **Slide**: Slides up from bottom
+- **Scale**: Zoom in/out effect
+- **Bounce**: Playful bounce animation
+- **Rotate**: Spinning entrance/exit
+- **Flip**: 3D flip effect
+
+All animations respect `prefers-reduced-motion` for accessibility.
+
+= What does "Hide on Scroll Down" do? =
+
+This UX-optimized feature automatically:
+- Hides the button when user scrolls down
+- Shows it instantly when scrolling up
+- Reduces visual clutter during content reading
+- Improves overall user experience
+- Works smoothly with all animation styles
 
 = Does it work with page builders? =
 
@@ -209,6 +264,7 @@ Yes, Tap Top is fully WCAG 2.1 AA compliant:
 Absolutely! Use Block-Only or Hybrid mode to add Tap Top blocks with unique settings to any page. Each block can have completely different:
 - Colors and styling
 - Position and sizing
+- Button shape and animation
 - Behavior and timing
 - Progress ring settings
 
@@ -229,133 +285,158 @@ No, Tap Top is designed for performance:
 - Minimal DOM impact
 - Proper event throttling and debouncing
 
-= Can I exclude specific pages? =
-
-Yes, you can exclude:
-- Individual posts and pages via the admin interface
-- Entire page types (archives, search, etc.)
-- Content via the search and select interface
-- Pages by adding conditional logic
-
-= Does it work with caching plugins? =
-
-Yes, fully compatible with all major caching solutions:
-- W3 Total Cache
-- WP Rocket
-- WP Super Cache
-- LiteSpeed Cache
-- Cloudflare and other CDNs
-
 == Screenshots ==
 
-1. **Admin Settings** - Comprehensive control panel with all customization options
-2. **Block Editor** - Gutenberg block with live preview and settings panel
-3. **Progress Ring** - Beautiful scroll progress indicator in action
-4. **Mobile Safe Areas** - Automatic positioning on devices with notches
-5. **Library Integration** - Seamless integration with Lenis smooth scrolling
-6. **Accessibility** - High contrast mode and reduced motion support
+1. **Admin Settings v1.3.0** - New button shapes and animation options
+2. **Button Shapes** - 6 unique shapes to choose from
+3. **Animation Styles** - 6 smooth animation effects
+4. **Block Editor** - Gutenberg block with live preview and v1.3.0 features
+5. **Hide on Scroll** - Smart auto-hide behavior in action
+6. **Mobile Safe Areas** - Automatic positioning on devices with notches
 
 == Changelog ==
 
-= 1.2.0 =
-**🎉 Major Release - WordPress Review Ready**
+= 1.3.0 - 2025-01-20 =
+**🎉 Major Feature Release**
 
 **NEW FEATURES:**
-* ✨ **Universal Anchor Link Fixes** - Normalizes anchor behavior across all scroll libraries
-* ✨ **Advanced Library Detection** - Automatic integration with Lenis, Locomotive, SmoothScrollbar
-* ✨ **Adaptive Obstruction Avoidance** - Smart positioning around cookie banners and widgets
-* ✨ **Full Gutenberg Integration** - Complete block system with Site Editor support
-* ✨ **Three Display Modes** - Global, Block-Only, and Hybrid approaches
-* ✨ **Scroll Progress Ring** - Beautiful progress indicator with accessibility support
-* ✨ **Mobile Safe-Area Support** - Automatic positioning for notched devices
-* ✨ **Enhanced A11y Features** - WCAG 2.1 AA compliance with motion preferences
+* ✨ **6 Unique Button Shapes** - Circle, Square, Rounded Square, Pill, Pentagon, Hexagon
+* ✨ **6 Smooth Animation Styles** - Fade, Slide, Scale, Bounce, Rotate, Flip (3D)
+* ✨ **Hide on Scroll Down** - Smart auto-hide behavior for improved UX
 
 **IMPROVEMENTS:**
-* 🚀 **Performance Optimizations** - Lazy loading, efficient animations, memory management
-* 🎨 **Modern CSS** - Support for CSS custom properties, safe-area-inset, forced-colors
-* 📱 **Mobile-First Design** - Touch-optimized interactions and responsive behavior
-* 🔧 **Developer Experience** - Clean code structure, proper WordPress standards
-* 📚 **Complete Documentation** - Detailed readme with examples and troubleshooting
+* 🎨 Enhanced CSS with shape-specific styling and clip-path support
+* ⚡ Optimized animations with GPU acceleration
+* 📱 Better mobile performance with shape rendering
+* 🔧 Improved animation transitions with prefers-reduced-motion support
+* 💫 Smooth state transitions for hide-on-scroll feature
 
-**TECHNICAL CHANGES:**
-* Complete rewrite of JavaScript core for better library detection
-* New PHP class structure for blocks and settings management
-* Enhanced admin interface with live search and content selection
-* Improved asset loading with conditional enqueueing
-* Better integration with WordPress coding standards
+**TECHNICAL:**
+* New CSS classes for shapes: `.shape-circle`, `.shape-square`, `.shape-rounded-square`, `.shape-pill`, `.shape-pentagon`, `.shape-hexagon`
+* New animation classes: `.anim-fade`, `.anim-slide`, `.anim-scale`, `.anim-bounce`, `.anim-rotate`, `.anim-flip`
+* Smart scroll direction detection for hide-on-scroll
+* Enhanced Gutenberg block with shape and animation previews
+* Full backward compatibility with v1.2.x
 
 **COMPATIBILITY:**
 * WordPress 5.6+ (tested up to 6.8)
-* PHP 7.2+ requirement
-* Modern browsers with ES6+ support
-* All major page builders and themes
-* Popular smooth scroll libraries
+* PHP 7.2+
+* All modern browsers with CSS clip-path support
+* Graceful degradation for older browsers
 
-**TESTING & VERIFICATION:**
-* Tested with Lenis, Locomotive Scroll, and SmoothScrollbar
-* Verified anchor link functionality across all supported libraries
-* Performance tested on various hosting environments
-* Accessibility tested with screen readers and keyboard navigation
-* Mobile tested on iOS and Android devices
+= 1.2.0 - 2025-01-15 =
+**🎉 Major Release - WordPress.org Approved**
 
-= 1.1.x =
-* Previous stable releases with basic functionality
+**NEW FEATURES:**
+* ✨ Universal anchor link fixes
+* ✨ Advanced library detection
+* ✨ Adaptive obstruction avoidance
+* ✨ Full Gutenberg integration
+* ✨ Three display modes
+* ✨ Scroll progress ring
+* ✨ Mobile safe-area support
+* ✨ Enhanced accessibility
+
+**IMPROVEMENTS:**
+* 🚀 Performance optimizations
+* 🎨 Modern CSS with custom properties
+* 📱 Mobile-first design
+* 🔧 WordPress coding standards
+* 📚 Complete documentation
+
+= 1.1.0 =
+* Initial stable release
 
 == Upgrade Notice ==
 
+= 1.3.0 =
+🎉 **Exciting new release!** Version 1.3.0 adds 6 unique button shapes, 6 smooth animation styles, and smart hide-on-scroll behavior. Fully backward compatible with v1.2.x. Update recommended for all users to access these new design options!
+
 = 1.2.0 =
-🎉 **Major update with WordPress Review requirements!** This version includes universal anchor fixes, advanced library detection, adaptive positioning, and full Gutenberg integration. All features have been tested and verified. Recommended for all users. Backup before upgrading.
+🎉 **Major update with WordPress Review requirements!** This version includes universal anchor fixes, advanced library detection, adaptive positioning, and full Gutenberg integration. Recommended for all users. Backup before upgrading.
 
 == Advanced Documentation ==
 
-= Scroll Library Integration Examples =
+= Button Shape Examples =
 
-**Lenis Integration:**
-```javascript
-// Tap Top detects Lenis and uses:
-lenis.scrollTo(0, {
-  duration: 0.6,
-  easing: (t) => 1 - Math.pow(1 - t, 3)
-})
-```
+**Circle** (Classic):
+- Perfect for traditional designs
+- Universal recognition
+- Clean and simple
 
-**Locomotive Scroll Integration:**
-```javascript
-// Automatically integrates with Locomotive:
-locomotive.scrollTo(0, {
-  duration: 600,
-  easing: [0.25, 0.00, 0.35, 1.00]
-})
-```
+**Square** (Modern):
+- Sharp, angular aesthetic
+- Contemporary design
+- Stands out on page
 
-**Custom Scroll Container Detection:**
-Tap Top automatically finds scroll containers using:
-- `[data-scroll-container]` attributes
-- Locomotive Scroll wrapper detection
-- Nested scrollable element analysis
-- Page builder scroll implementations
+**Rounded Square**:
+- Friendly, approachable
+- Balanced between sharp and soft
+- Popular in modern UIs
 
-= Block Customization Guide =
+**Pill** (Capsule):
+- Elongated shape
+- Modern app-like feel
+- Great for minimal designs
 
-Each Tap Top block supports independent configuration:
+**Pentagon**:
+- Unique 5-sided polygon
+- Geometric visual interest
+- Distinctive appearance
 
-**Basic Settings:**
-- Position (left/right)
-- Size (24-80px)
-- Colors (background, icon)
-- Show/hide conditions
+**Hexagon**:
+- 6-sided polygon
+- Technical/modern aesthetic
+- Popular in tech designs
 
-**Progress Ring Settings:**
-- Enable/disable per block
-- Custom colors and width
-- Background ring styling
-- Animation preferences
+= Animation Style Guide =
 
-**Advanced Settings:**
-- Custom offsets and positioning
-- Scroll threshold adjustment
-- Accessibility label customization
-- Motion preference handling
+**Fade** (Recommended):
+- Smooth, subtle appearance
+- Universal compatibility
+- Low motion impact
+
+**Slide**:
+- Slides up from bottom
+- Clear directional cue
+- Engaging entrance
+
+**Scale**:
+- Zoom in/out effect
+- Draws attention
+- Modern feel
+
+**Bounce**:
+- Playful, energetic
+- Fun animation
+- Good for casual sites
+
+**Rotate**:
+- Spinning entrance
+- Eye-catching
+- Unique effect
+
+**Flip**:
+- 3D perspective effect
+- Most dramatic
+- Modern browsers only
+
+All animations automatically disabled for users with `prefers-reduced-motion` setting.
+
+= Hide on Scroll Down =
+
+**How It Works:**
+1. Button appears when scrolling up
+2. Button hides when scrolling down
+3. Reduces visual clutter during reading
+4. Smooth transitions with chosen animation
+5. Improves overall UX
+
+**Best Practices:**
+- Works great with Slide or Fade animations
+- Ideal for content-heavy sites
+- Reduces distraction during reading
+- Users can still access by scrolling up
 
 = Developer Hooks =
 
@@ -368,40 +449,6 @@ Each Tap Top block supports independent configuration:
 **Actions:**
 - `taptop_before_button_render` - Before button initialization
 - `taptop_after_assets_enqueue` - After assets are loaded
-
-= Troubleshooting =
-
-**Common Issues:**
-
-*Button doesn't appear:*
-- Check if plugin is enabled in settings
-- Verify display mode configuration
-- Ensure page type is not excluded
-- Check browser console for JavaScript errors
-
-*Conflicts with smooth scroll:*
-- Update to latest version (1.2.0+)
-- Check if scroll library is properly detected
-- Verify no other plugins interfere
-- Review browser console for detection logs
-
-*Block not showing:*
-- Ensure block is enabled in block settings
-- Check if global plugin is enabled
-- Verify display mode allows blocks
-- Clear any caching plugins
-
-*Anchor links not working:*
-- Verify HTML anchors are properly set on headings
-- Check browser console for Universal Anchor Fixes logs
-- Ensure no theme conflicts with event handlers
-- Test with default theme to isolate issues
-
-**Getting Help:**
-1. Check browser console for error messages
-2. Test with default theme and minimal plugins
-3. Verify WordPress and PHP version requirements
-4. Use support forum with detailed information
 
 == Privacy Policy ==
 
@@ -419,11 +466,6 @@ Tap Top respects user privacy and GDPR compliance:
 - No external dependencies or CDN usage
 - Respects user's motion and accessibility preferences
 
-**Third-Party Integration:**
-- Only detects presence of scroll libraries (no data sent)
-- Does not modify or interfere with other plugins' data
-- Safe-area detection uses CSS environment variables only
-
 == Credits ==
 
 Special thanks to:
@@ -431,3 +473,4 @@ Special thanks to:
 - Accessibility consultants for WCAG compliance guidance
 - Modern scroll library maintainers for API documentation
 - Beta testers who helped refine the user experience
+- Design inspiration from modern web applications

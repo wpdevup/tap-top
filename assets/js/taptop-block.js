@@ -1,4 +1,3 @@
-// TapTop Block - Enhanced Version with Settings Panel
 (function() {
     const { registerBlockType } = wp.blocks;
     const { createElement: el, Fragment } = wp.element;
@@ -72,6 +71,18 @@
             offsetSide: {
                 type: 'number',
                 default: 24
+            },
+            buttonShape: {
+                type: 'string',
+                default: 'circle'
+            },
+            animationStyle: {
+                type: 'string',
+                default: 'fade'
+            },
+            hideOnScrollDown: {
+                type: 'boolean',
+                default: false
             }
         },
 
@@ -89,12 +100,13 @@
                 progressBgColor,
                 showAfter,
                 offsetBottom,
-                offsetSide
+                offsetSide,
+                buttonShape,
+                animationStyle,
+                hideOnScrollDown
             } = attributes;
 
-            // Settings Panel (Inspector Controls)
             const inspectorControls = el(InspectorControls, {},
-                // Display Settings
                 el(PanelBody, {
                     title: __('Display Settings', 'tap-top'),
                     initialOpen: true
@@ -132,11 +144,40 @@
                     })
                 ),
 
-                // Appearance Settings
                 el(PanelBody, {
-                    title: __('Appearance', 'tap-top'),
+                    title: __('Appearance', 'tap-top') + ' ✨',
                     initialOpen: false
                 },
+                    el(SelectControl, {
+                        label: __('Button Shape', 'tap-top'),
+                        value: buttonShape,
+                        options: [
+                            { label: __('Circle (Classic)', 'tap-top'), value: 'circle' },
+                            { label: __('Square', 'tap-top'), value: 'square' },
+                            { label: __('Rounded Square', 'tap-top'), value: 'rounded-square' },
+                            { label: __('Pill (Capsule)', 'tap-top'), value: 'pill' },
+                            { label: __('Pentagon', 'tap-top'), value: 'pentagon' },
+                            { label: __('Hexagon', 'tap-top'), value: 'hexagon' }
+                        ],
+                        onChange: (value) => setAttributes({ buttonShape: value }),
+                        help: __('Choose a unique button shape', 'tap-top')
+                    }),
+                    
+                    el(SelectControl, {
+                        label: __('Animation Style', 'tap-top'),
+                        value: animationStyle,
+                        options: [
+                            { label: __('Fade (Classic)', 'tap-top'), value: 'fade' },
+                            { label: __('Slide Up', 'tap-top'), value: 'slide' },
+                            { label: __('Scale (Zoom)', 'tap-top'), value: 'scale' },
+                            { label: __('Bounce', 'tap-top'), value: 'bounce' },
+                            { label: __('Rotate', 'tap-top'), value: 'rotate' },
+                            { label: __('Flip (3D)', 'tap-top'), value: 'flip' }
+                        ],
+                        onChange: (value) => setAttributes({ animationStyle: value }),
+                        help: __('How the button appears', 'tap-top')
+                    }),
+                
                     el(BaseControl, {
                         label: __('Background Color', 'tap-top')
                     },
@@ -172,7 +213,18 @@
                     })
                 ),
 
-                // Progress Ring Settings
+                el(PanelBody, {
+                    title: __('Behavior', 'tap-top') + ' ✨',
+                    initialOpen: false
+                },
+                    el(ToggleControl, {
+                        label: __('Hide on Scroll Down', 'tap-top'),
+                        checked: hideOnScrollDown,
+                        onChange: (value) => setAttributes({ hideOnScrollDown: value }),
+                        help: __('Auto-hide when scrolling down, show when scrolling up', 'tap-top')
+                    })
+                ),
+
                 el(PanelBody, {
                     title: __('Progress Ring', 'tap-top'),
                     initialOpen: false
@@ -218,7 +270,30 @@
                 )
             );
 
-            // Block Preview
+            const getShapeLabel = (shape) => {
+                const shapes = {
+                    'circle': '⚫',
+                    'square': '⬜',
+                    'rounded-square': '⬛',
+                    'pill': '💊',
+                    'pentagon': '⬟',
+                    'hexagon': '⬢'
+                };
+                return shapes[shape] || '⚫';
+            };
+
+            const getAnimationLabel = (anim) => {
+                const anims = {
+                    'fade': 'Fade',
+                    'slide': 'Slide',
+                    'scale': 'Scale',
+                    'bounce': 'Bounce',
+                    'rotate': 'Rotate',
+                    'flip': 'Flip'
+                };
+                return anims[anim] || 'Fade';
+            };
+
             const blockPreview = el('div', {
                 style: {
                     padding: '20px',
@@ -236,9 +311,13 @@
                         width: Math.round(size * 0.6) + 'px',
                         height: Math.round(size * 0.6) + 'px',
                         backgroundColor: bgColor,
-                        borderRadius: '50%',
+                        borderRadius: buttonShape === 'circle' ? '50%' : 
+                                      buttonShape === 'rounded-square' ? '8px' :
+                                      buttonShape === 'pill' ? '50%' : '0',
                         marginBottom: '8px',
-                        position: 'relative'
+                        position: 'relative',
+                        clipPath: buttonShape === 'pentagon' ? 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)' :
+                                 buttonShape === 'hexagon' ? 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' : 'none'
                     }
                 }, [
                     el('div', {
@@ -259,7 +338,7 @@
                 el('h4', { 
                     key: 'title',
                     style: { margin: '0 0 4px 0', color: enabled ? '#007cba' : '#666' }
-                }, __('Tap Top Button', 'tap-top')),
+                }, __('Tap Top Button', 'tap-top') + ' v1.3.0'),
                 el('p', { 
                     key: 'desc',
                     style: { margin: '0', fontSize: '14px', color: '#666' }
@@ -275,7 +354,7 @@
                         marginTop: '8px',
                         fontStyle: 'italic'
                     }
-                }, `${position === 'right' ? 'Right' : 'Left'} • ${size}px • ${showProgress ? 'Progress Ring' : 'No Ring'}`)
+                }, `${getShapeLabel(buttonShape)} ${buttonShape} • ${getAnimationLabel(animationStyle)} • ${size}px • ${position === 'right' ? 'Right' : 'Left'}${hideOnScrollDown ? ' • Auto-Hide' : ''}`)
             ]);
 
             return el(Fragment, {},
@@ -285,7 +364,7 @@
         },
 
         save: function() {
-            return null; // Dynamic block - rendered by PHP
+            return null;
         }
     });
 })();
